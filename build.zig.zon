@@ -17,7 +17,7 @@
             .lazy = true,
         },
         .c64_zig = .{
-            .url = "../c64-zig/",
+            .url = "git+https://github.com/SimoneFelici/c64-zig.git?ref=main#6d9b48ef8fe04bf331d5b1a9fc67b2df889127c7",
             .hash = "c64_zig-0.0.0-IHLMKdcVAADk0dja5LLlV5pskMmVEzL9GYf5vtcsiU4M",
         },
     },
