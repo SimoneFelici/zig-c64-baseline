@@ -29,7 +29,7 @@ pub fn build(b: *std.Build) void {
     }
 
     // C64 hardware definitions
-    const c64_mod = b.dependency("c64_zig", .{}).module("c64");
+    const c64_dep = b.dependency("c64_zig", .{}).module("c64");
 
     const mos_panic_mod = b.createModule(.{
         .root_source_file = b.path("sdk/panic.zig"),
@@ -46,7 +46,7 @@ pub fn build(b: *std.Build) void {
             .optimize = optimize,
             .sanitize_c = .off,
             .imports = &.{
-                .{ .name = "c64", .module = c64_mod },
+                .{ .name = "c64", .module = c64_dep },
                 .{ .name = "mos_panic", .module = mos_panic_mod },
             },
         }),

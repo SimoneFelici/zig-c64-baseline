@@ -1,6 +1,7 @@
 // Copyright (c) 2024 Matheus C. França
 // SPDX-License-Identifier: Apache-2.0
 //! C64 Fibonacci — prints fib(0..9) from a ROM lookup table.
+
 pub const panic = @import("mos_panic");
 const std = @import("std");
 
