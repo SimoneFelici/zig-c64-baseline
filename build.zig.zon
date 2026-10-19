@@ -16,6 +16,10 @@
             .hash = "picolibc-1.8.11-h5ad4F1KAwCMGYHofmw8xMHau8MJ6ncTNHpkFg00eZII",
             .lazy = true,
         },
+        .c64_zig = .{
+            .url = "../c64-zig/",
+            .hash = "c64_zig-0.0.0-IHLMKdcVAADk0dja5LLlV5pskMmVEzL9GYf5vtcsiU4M",
+        },
     },
     .minimum_zig_version = "0.17.0",
     .paths = .{"."},

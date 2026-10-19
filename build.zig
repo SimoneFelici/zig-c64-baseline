@@ -34,9 +34,8 @@ pub fn build(b: *std.Build) void {
         if (std.mem.eql(u8, pd.name, "c64")) sdk_libs.c64 = libs;
     }
 
-    // Translated headers for C64.
-    const c64_build_target = b.resolveTargetQuery(.{ .cpu_arch = .mos, .os_tag = .c64 });
-    const c64_mod = c64HeaderMod(b, sdk_dep, c64_build_target, optimize);
+    // C64 hardware definitions (c64-zig).
+    const c64_mod = b.dependency("c64_zig", .{}).module("c64");
 
     // Host tool: multi-format binary inspector (NES/PRG/A26/XEX/NEO).
     const bininfo = b.addExecutable(.{
@@ -51,17 +50,6 @@ pub fn build(b: *std.Build) void {
     const check_outputs = b.step("check-outputs", "Inspect all built example binaries with bininfo");
     const run_bininfo = b.addRunArtifact(bininfo);
     check_outputs.dependOn(&run_bininfo.step);
-
-    // Host tool: NES CHR ROM → SVG tile-sheet renderer.
-    const chr2svg = b.addExecutable(.{
-        .name = "chr2svg",
-        .root_module = b.createModule(.{
-            .root_source_file = b.path("tools/chr2svg.zig"),
-            .target = b.graph.host,
-            .optimize = .safe,
-        }),
-    });
-    b.installArtifact(chr2svg);
 
     // Host tool: NES / SNES pack · unpack · disassemble.
     const romtool = b.addExecutable(.{
@@ -178,17 +166,6 @@ pub fn build(b: *std.Build) void {
     }
 }
 
-// translate-c is the one path that misses the -nostdinc normal C compiles get
-// (src/Compilation.zig), so clang's builtin stdint.h does its hosted
-// #include_next fallback into the HOST glibc headers — /usr/include/stdint.h →
-// features.h → gnu/stubs.h, which has no stubs-32.h on Ubuntu CI. Every MOS
-// target is bare metal, so translate as freestanding and keep the host out.
-fn addTranslateC(b: *std.Build, options: std.Build.Step.TranslateC.Options) *std.Build.Step.TranslateC {
-    const tc = b.addTranslateC(options);
-    tc.defineCMacro("__STDC_HOSTED__", "0");
-    return tc;
-}
-
 fn addC64Exe(
     b: *std.Build,
     sdk_dep: *std.Build.Dependency,
@@ -253,24 +230,6 @@ fn addC64Exe(
     addMosPanicImport(b, exe, target, opt);
 
     return exe;
-}
-
-fn c64HeaderMod(
-    b: *std.Build,
-    sdk_dep: *std.Build.Dependency,
-    target: std.Build.ResolvedTarget,
-    opt: std.builtin.OptimizeMode,
-) *std.Build.Module {
-    const tc = addTranslateC(b, .{
-        .root_source_file = sdk_dep.path("mos-platform/c64/c64.h"),
-        .target = target,
-        .optimize = opt,
-        .link_libc = false,
-    });
-    tc.addIncludePath(sdk_dep.path("mos-platform/c64"));
-    tc.addIncludePath(sdk_dep.path("mos-platform/commodore"));
-    tc.addIncludePath(sdk_dep.path("mos-platform/common/include"));
-    return tc.createModule();
 }
 
 fn addMosPanicImport(b: *std.Build, exe: *std.Build.Step.Compile, target: std.Build.ResolvedTarget, opt: std.builtin.OptimizeMode) void {

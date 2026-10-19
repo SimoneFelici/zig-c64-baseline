@@ -7,12 +7,10 @@ pub const panic = @import("mos_panic");
 const std = @import("std");
 const c64 = @import("c64");
 
-const VIC: *volatile c64.__vic2 = @ptrFromInt(0xD000);
+const VIC = c64.vic;
 
 export fn main() void {
-    VIC.unnamed_2.unnamed_0.bgcolor0 = c64.COLOR_BLACK;
-    _ = std.c.printf("Hello Zig!\n");
-    while (true) {
-        VIC.bordercolor +%= 1;
-    }
+    VIC.bgcolor[0] = .black;
+    _ = std.c.printf("test");
+    VIC.bordercolor = .blue;
 }
