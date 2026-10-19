@@ -1,289 +1,48 @@
-[![CI](https://github.com/kassane/zig-mos-examples/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/kassane/zig-mos-examples/actions/workflows/ci.yml)
-[![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/kassane/zig-mos-examples)
+# zig-c64-baseline
 
-# zig-mos-examples
-
-Zig examples targeting MOS 6502 platforms via [zig-mos-bootstrap](https://github.com/kassane/zig-mos-bootstrap) and [llvm-mos-sdk](https://github.com/llvm-mos/llvm-mos-sdk).
+Baseline for working on c64 games in zig, using [zig-mos-bootstrap](https://github.com/kassane/zig-mos-bootstrap) and [llvm-mos-sdk](https://github.com/llvm-mos/llvm-mos-sdk).
 
 ## Requirements
 
 - [zig-mos-bootstrap](https://github.com/kassane/zig-mos-bootstrap/releases) — Zig toolchain with LLVM-MOS backend
 
+```bash
+mise use github:kassane/zig-mos-bootstrap@0.17.0
+```
+
 ## Build
 
 ```sh
-git clone https://github.com/kassane/zig-mos-examples.git
-cd zig-mos-examples
-zig build --summary all
+git clone git@github.com:SimoneFelici/zig-c64-baseline.git
+cd zig-c64-baseline
+zig build -Doptimize=ReleaseSmall <c64-hello | c64-fibonacci | c64-plasma>
 ```
 
 Named steps (build one at a time):
 
 ```sh
-# NES
-zig build nes-hello1
-zig build nes-hello2
-zig build nes-hello3
-zig build nes-zig-logo
-zig build nes-fade
-zig build nes-sprites
-zig build nes-pads
-zig build nes-color-cycle
-zig build nes-fullbg
-zig build nes-random
-zig build nes-bat-ball
-zig build nes-megablast
-zig build nes-gg-demo
-zig build nes-mappers
-zig build nes-cnrom-hello
-zig build nes-cnrom-sprites
-zig build nes-unrom-hello
-zig build nes-unrom-color-cycle
-zig build nes-mmc1-hello
-zig build nes-mmc1-sprites
-zig build nes-mmc3-hello
-zig build nes-mmc3-pads
-zig build nes-gtrom-hello
-zig build nes-gtrom-color-cycle
-zig build nes-unrom-512-hello
-zig build nes-action53-hello
-zig build fds-hello
-zig build nes-nesdoug-mmc3
-zig build nes-full-game
-
 # Commodore 64
 zig build c64-hello
 zig build c64-fibonacci
 zig build c64-plasma
 
-# Commodore 128
-zig build c128-hello
-
-# Commodore PET
-zig build pet-hello
-
-# Supervision
-zig build supervision-hello
-
-# Dodo
-zig build dodo-hello
-
-# OSI Challenger 1P
-zig build osi-c1p-hello
-
-# CP/M-65
-zig build cpm65-hello
-
-# Commander X16
-zig build cx16-hello
-zig build cx16-k-console-test
-zig build vic20-hello
-
-# Atari Lynx
-zig build lynx-hello
-
-# Atari 2600
-zig build atari2600-colorbar
-zig build atari2600-3e-colorbar
-
-# Atari 8-bit
-zig build atari8dos-hello
-zig build atari8-cart-hello
-zig build atari5200-cart-hello
-zig build atari8-megacart-hello
-zig build atari8-xegs-hello
-
-# GEOS-CBM
-zig build geos-hello
-
-# PC Engine
-zig build pce-color-cycle
-zig build pce-color-cycle-banked
-
-# Neo6502
-zig build neo6502-graphics
-
-# SNES
-zig build snes-hello
-zig build snes-color-cycle
-zig build snes-zig-logo
-zig build snes-pi-test
-zig build snes-pi-fastrom
-zig build snes-hirom-hello
-zig build snes-pads
-
-# mos-sim (6502 simulator)
-zig build sim-hello
-```
-
-Optional platforms:
-
-```sh
-# Ben Eater 6502
-zig build eater-hello-lcd
-zig build eater-asm-clobber
-
-# MEGA65 — mega65-libc fetched automatically via build.zig.zon
-zig build mega65-hello
-zig build mega65-plasma
-zig build mega65-viciv
-
-# Apple II — ProDOS SYS via the llvm-mos-sdk apple2 platform
-zig build apple2-hello
 ```
 
 Output files land in `zig-out/bin/`.
 
 ## Gallery
 
-### NES
+### C64
 
 | Example | Preview |
 |---------|---------|
-| `nes-zig-logo` — Zig mark logo with shimmer palette animation | ![](.github/zig-logo.gif) |
-| `nes-hello1` — text hello-world (NROM) | ![](.github/hello1-nes.png) |
-| `nes-hello2` — text hello-world variant 2 | ![](.github/hello2-nes.png) |
-| `nes-hello3` — text hello-world variant 3 | ![](.github/hello3-nes.png) |
-| `nes-fade` — full-screen palette fade in/out | ![](.github/fade-nes.png) |
-| `nes-fullbg` — full background with metatiles | |
-| `nes-sprites` — OAM sprite rendering | |
-| `nes-random` — 64 sprites at random positions, three fall speeds | ![](.github/random.gif) |
-| `nes-bat-ball` — bat-and-ball game loop (CH05 port) | ![](.github/bat-ball.gif) |
-| `nes-megablast` — full-game [no sound] (CH13 port) | ![](.github/megablast.gif) |
-| `nes-gg-demo` — Game Genie demo: metatile font, scrolling, player physics | ![](.github/gg-demo.gif) |
-| `nes-color-cycle` — background colour cycling | |
-| `nes-pads` — controller input with two 16×16 metasprites | ![](.github/mmc3-pads.gif) |
-| `nes-mappers` — CNROM 4-bank CHR demo, press Start to cycle banks | ![](.github/mappers.gif) |
-| `nes-cnrom-hello` — CNROM banked CHR ROM | |
-| `nes-cnrom-sprites` — CNROM sprites example | |
-| `nes-unrom-hello` — UNROM banked PRG ROM | |
-| `nes-unrom-color-cycle` — UNROM colour-cycle across PRG banks | |
-| `nes-mmc1-hello` — MMC1 mapper | |
-| `nes-mmc1-sprites` — MMC1 sprites with CHR RAM upload | |
-| `nes-mmc3-hello` — MMC3 mapper | |
-| `nes-mmc3-pads` — MMC3 controller + collision example | ![](.github/mmc3-pads.gif) |
-| `nes-gtrom-hello` — GTROM mapper | |
-| `nes-gtrom-color-cycle` — GTROM colour-cycle with LED | |
-| `nes-unrom-512-hello` — UNROM-512 mapper (mapper 30) | |
-| `nes-action53-hello` — Action53 multicart (mapper 28) | |
-| `fds-hello` — Famicom Disk System backdrop hello | |
-| `nes-nesdoug-mmc3` — MMC3 demo: banked_call, FamiTone2 music, mid-screen IRQ splits, WRAM | ![](.github/nesdoug-mmc3.gif) |
-| `nes-full-game` — scrolling platformer (MMC3): player, enemies, coins, collectibles, 3 levels | ![](.github/full-game.gif) |
-
-### SNES
-
-| Example | Preview |
-|---------|---------|
-| `snes-hello` — LoROM backdrop hello | |
-| `snes-zig-logo` — Zig mark logo on BG1 with shimmer palette animation | ![](.github/snes-zig-logo.gif) |
-| `snes-color-cycle` — backdrop hue rotation (192-step colour wheel) | |
-| `snes-pi-test` — ~900 digits of π via Spigot algorithm, BG1 text (port of pi_snes by Sirmacho) | |
-| `snes-pi-fastrom` — same π demo built as FastROM (map mode $30, MEMSEL=1) | |
-| `snes-hirom-hello` — HiROM backdrop hello (map mode $21) | |
-| `snes-pads` — joypad demo: LEFT/RIGHT cycles backdrop color, A+B resets; exercises `buttonMask`, `held`, `pressed` | |
-
-### Other platforms
-
-| Example | Preview |
-|---------|---------|
-| `apple2-hello` — text hello-apple-ii | <center><img width="320" src=".github/hello-apple2.png"></center> |
-| `mega65-plasma` — MEGA65 Plasma effect | ![](.github/mega65_plasma.gif) |
 | `c64-plasma` — Commodore 64 plasma effect | ![](.github/c64_plasma.gif) |
-| `mega65-hello` — print to screen | <center><img width="320" src=".github/xemu-xmega65_hello-zig.png"></center> |
-| `pce-color-cycle-banked` — PC Engine banked colour cycle | |
-| `atari2600-colorbar` — Atari 2600 colour bars | |
 
 ## Platforms
 
-| Step | Platform | CPU | Output |
-|------|----------|-----|--------|
-| `nes-hello1`, `nes-hello2`, `nes-hello3` | NES NROM | mos6502 | `.nes` |
-| `nes-zig-logo` | NES NROM | mos6502 | `.nes` |
-| `nes-fade` | NES NROM | mos6502 | `.nes` |
-| `nes-fullbg` | NES NROM | mos6502 | `.nes` |
-| `nes-sprites` | NES NROM | mos6502 | `.nes` |
-| `nes-random` | NES NROM | mos6502 | `.nes` |
-| `nes-pads` | NES NROM | mos6502 | `.nes` |
-| `nes-color-cycle` | NES NROM | mos6502 | `.nes` |
-| `nes-bat-ball` | NES NROM | mos6502 | `.nes` |
-| `nes-megablast` | NES NROM | mos6502 | `.nes` |
-| `nes-gg-demo` | NES NROM | mos6502 | `.nes` |
-| `nes-mappers` | NES CNROM (4-bank) | mos6502 | `.nes` |
-| `nes-cnrom-hello` | NES CNROM | mos6502 | `.nes` |
-| `nes-cnrom-sprites` | NES CNROM sprites | mos6502 | `.nes` |
-| `nes-unrom-hello` | NES UNROM | mos6502 | `.nes` |
-| `nes-unrom-color-cycle` | NES UNROM colour-cycle | mos6502 | `.nes` |
-| `nes-mmc1-hello` | NES MMC1 | mos6502 | `.nes` |
-| `nes-mmc1-sprites` | NES MMC1 sprites (CHR RAM) | mos6502 | `.nes` |
-| `nes-mmc3-hello` | NES MMC3 | mos6502 | `.nes` |
-| `nes-mmc3-pads` | NES MMC3 controller + collision | mos6502 | `.nes` |
-| `nes-gtrom-hello` | NES GTROM | mos6502 | `.nes` |
-| `nes-gtrom-color-cycle` | NES GTROM colour-cycle + LED | mos6502 | `.nes` |
-| `nes-unrom-512-hello` | NES UNROM-512 | mos6502 | `.nes` |
-| `nes-action53-hello` | NES Action53 (mapper 28) | mos6502 | `.nes` |
-| `fds-hello` | Famicom Disk System | mos6502 | `.fds` |
-| `nes-nesdoug-mmc3` | NES MMC3 (nesdoug demo) | mos6502 | `.nes` |
-| `nes-full-game` | NES MMC3 scrolling platformer | mos6502 | `.nes` |
 | `c64-hello`, `c64-fibonacci` | Commodore 64 | mos6502 | `.prg` |
 | `c64-plasma` | Commodore 64 | mos6502 | `.prg` |
-| `vic20-hello` | Commodore VIC-20 (24K) | mos6502 | `.prg` |
-| `c128-hello` | Commodore 128 | mos6502 | `.prg` |
-| `pet-hello` | Commodore PET | mos6502 | `.prg` |
-| `supervision-hello` | Watara Supervision | mos65c02 | `.sv` |
-| `dodo-hello` | Dodo | mos65c02 | (raw) |
-| `osi-c1p-hello` | OSI Challenger 1P | mos6502 | (raw) |
-| `cpm65-hello` | CP/M-65 | mos6502 | `.com` |
-| `cx16-hello` | Commander X16 | mosw65c02 | `.prg` |
-| `cx16-k-console-test` | Commander X16 | mosw65c02 | `.prg` |
-| `lynx-hello` | Atari Lynx | mos6502 | `.bll` |
-| `atari2600-colorbar` | Atari 2600 | mos6502 | `.a26` |
-| `atari2600-3e-colorbar` | Atari 2600 (3E) | mos6502 | `.a26` |
-| `atari8dos-hello` | Atari 8-bit DOS | mos6502 | `.xex` |
-| `atari8-cart-hello` | Atari 8-bit cart | mos6502 | `.rom` |
-| `atari5200-cart-hello` | Atari 5200 cart | mos6502 | `.rom` |
-| `atari8-megacart-hello` | Atari 8-bit MegaCart | mos6502 | `.rom` |
-| `atari8-xegs-hello` | Atari 8-bit XEGS cart | mos6502 | `.rom` |
-| `geos-hello` | GEOS-CBM | mos6502 | `.cvt` |
-| `pce-color-cycle` | PC Engine | mosw65c02 | `.pce` |
-| `pce-color-cycle-banked` | PC Engine banked | mosw65c02 | `.pce` |
-| `neo6502-graphics` | Neo6502 | mosw65c02 | `.neo` |
-| `snes-hello` | SNES LoROM | mosw65816 | `.sfc` |
-| `snes-color-cycle` | SNES LoROM | mosw65816 | `.sfc` |
-| `snes-zig-logo` | SNES LoROM | mosw65816 | `.sfc` |
-| `snes-pi-test` | SNES LoROM | mosw65816 | `.sfc` |
-| `snes-pi-fastrom` | SNES FastROM | mosw65816 | `.sfc` |
-| `snes-hirom-hello` | SNES HiROM | mosw65816 | `.sfc` |
-| `snes-pads` | SNES LoROM | mosw65816 | `.sfc` |
-| `sim-hello` | mos-sim (6502 simulator) | mos6502 | binary |
-| `eater-hello-lcd` | Ben Eater 6502 LCD | mosw65c02 | `.rom` |
-| `eater-asm-clobber` | Ben Eater 6502 asm clobber test | mosw65c02 | `.rom` |
-| `mega65-hello`, `mega65-plasma` | MEGA65 | mos45gs02 | `.prg` |
-| `mega65-viciv` | MEGA65 VICIV | mos45gs02 | `.prg` |
-| `apple2-hello` | Apple IIe ProDOS | mos6502 | `.sys` |
 
-## sim-hello benchmark
-
-Build and run in one step (no prebuilt `mos-sim` binary required):
-
-```sh
-zig build run-sim-hello
-```
-
-Or build the simulator separately first:
-
-```sh
-zig build build-mos-sim   # compiles mos-sim from llvm-mos-sdk source
-zig build sim-hello
-zig-out/bin/mos-sim zig-out/bin/sim-hello
-```
-
-```
-mos-sim benchmarks
-==================
-fib(10) =     55  (   7 cycles)
-fib(20) =   6765  (   4 cycles)
-sieve<127>: 31 primes  (6905 cycles)
-```
 
 ## Host tools
 
@@ -364,69 +123,9 @@ romtool pack snes -o out.sfc --map lorom bank-00.bin [bank-01.bin ...]
 romtool pack snes -o out.smc --map hirom --title "MY GAME" --smc bank-00.bin
 ```
 
-### `chr2svg` / `svg2chr` — NES CHR tile converter
-
-```sh
-# CHR ROM → SVG (view/edit tiles in any SVG editor)
-chr2svg zig-out/bin/chr-bank-00.bin tiles.svg --scale 3 --cols 16
-
-# SVG → CHR ROM (after editing)
-svg2chr tiles.svg chr-bank-00.bin
-```
-
-### `svgcheck` — SVG tile validator
-
-Checks that an SVG tile file is well-formed and compatible with `svg2chr` (correct viewBox, pixel dimensions, tile count).
-
-```sh
-svgcheck tiles.svg
-```
-
-### `elf2mlb` — Mesen label file generator
-
-Converts a MOS ELF debug binary to a Mesen `.mlb` label file for source-level symbol display in the Mesen emulator debugger.
-
-```sh
-elf2mlb zig-out/bin/hello1.nes hello1.mlb hello1.nes.elf
-```
-
-The `gen-labels` build step runs this automatically for all NES examples.
-
 ## Platform notes
 
-- **NES mappers** — CNROM 4-bank CHR demo; press Start to cycle through 4 CHR banks with distinct palettes. ROM: 32 KB PRG + 32 KB CHR ROM (4×8 KB banks).
-- **NES CNROM hello** — uses translated `mapper.h` via `b.addTranslateC`; calls `set_chr_bank(0)` to initialise the CNROM CHR bank. ROM: 32 KB PRG + 8 KB CHR ROM.
-- **NES CNROM sprites** — CNROM OAM sprite rendering with banked CHR. ROM: 32 KB PRG + 8 KB CHR ROM.
-- **NES UNROM hello** — uses translated `mapper.h`; calls `set_prg_bank(0)` to initialise the UNROM PRG bank. ROM: 256 KB PRG + 8 KB CHR RAM.
-- **NES UNROM colour-cycle** — cycles backdrop colour across multiple UNROM PRG banks. ROM: 256 KB PRG + CHR RAM.
-- **NES MMC1 hello** — uses translated `mapper.h`; calls `set_prg_bank(0)` and `set_mirroring(MIRROR_VERTICAL)` to initialise MMC1 registers. ROM: 256 KB PRG + 8 KB CHR RAM.
-- **NES MMC1 sprites** — MMC1 OAM sprites with 8 KB CHR uploaded to CHR RAM via `vram_write`; calls `set_mmc1_ctrl(0x0E)` first to set 8 KB CHR mode.
-- **NES MMC3 hello** — uses translated `mapper.h`; calls `set_prg_bank(0)` to initialise MMC3 PRG bank. ROM: 512 KB PRG + CHR RAM.
-- **NES MMC3 pads** — MMC3 controller input + sprite-background collision; uploads CHR tiles to CHR RAM.
-- **NES GTROM hello** — uses translated `mapper.h`; GTROM (Codemasters) flash mapper. ROM: 512 KB PRG flash.
-- **NES GTROM colour-cycle** — GTROM PRG bank cycling with LED toggle via `$5000` write.
-- **NES UNROM-512 hello** — uses translated `mapper.h`; calls `set_prg_bank(0)` and `set_chr_bank(0)` to initialise mapper 30 registers. ROM: 512 KB PRG + 32 KB CHR RAM.
-- **NES Action53 hello** — uses translated `mapper.h`; mapper 28 (Action53 multicart). ROM: 64 KB PRG + 8 KB CHR RAM.
-- **NES nesdoug MMC3** — MMC3 demo ported from Doug Fraker's nesdoug-llvm tutorial (chapter 33); exercises `banked_call`, FamiTone2 music playback, mid-screen IRQ colour splits, and WRAM read/write.
-- **NES full-game** — scrolling platformer (chapter 26 port); player movement, enemies, coins, collectibles, score display, and 3 levels. MMC3 mapper with FamiTone2 music; uses nesdoug VRAM buffer for HUD updates.
-- **FDS hello** — Famicom Disk System; uses raw PPU register writes via `nes/hardware.zig` (no neslib — FDS has no CHR ROM, raw PPU only). Writes dark-green backdrop (`$1A`) to palette `$3F00`.
-- **VIC-20 hello** — uses CBM KERNAL `cbm_k_chrout` to print "HELLO VIC20!", then cycles VIC chip background/border colour register (`$900F`). Targets 24K memory expansion, loads at `$1201`.
 - **C64 hello** — uses translated `c64.h` (VIC-II typed struct) via `b.addTranslateC`; cycles VIC-II border colour register.
-- **CX16 hello** — uses CBM KERNAL `cbm_k_chrout` to print "HELLO X16!", then cycles the border colour register.
-- **Lynx hello** — uses translated `_mikey.h` (MIKEY typed struct) via `b.addTranslateC`; animates all 32 palette entries.
-- **SNES FastROM** — same π demo as `snes-pi-test` built with map mode `$30` (FastROM) and MEMSEL=1; ROM mirrored at `$80:8000`, runs at full 3.58 MHz.
-- **SNES HiROM** — 64 KB bank layout with header at `$FFC0`; data bank register forced to `$00` via `lda #$00; pha; plb` in crt0 (safe for both LoROM and HiROM).
-- **Atari 8-bit DOS hello** — uses `std.c.printf` via CIO-backed libc (E: screen editor device).
-- **Atari 8-bit cart hello** — uses translated `_gtia.h` (GTIA write struct) via `b.addTranslateC`; cycles COLBK background colour, synced to ANTIC VCOUNT.
-- **Atari 5200 cart hello** — cycles GTIA COLBK register (`$C01A`) through all hues via direct `*volatile u8` write. No CIO/stdio on 5200; pure hardware register loop.
-- **Atari 8-bit MegaCart hello** — uses translated `_gtia.h`; cycles COLBK synced to ANTIC VCOUNT. MegaCart bank 0 is selected at cold start via the SDK's `tail0.s` stub before `main()` runs.
-- **Atari 8-bit XEGS hello** — same GTIA colour-cycle as MegaCart but targeting the XEGS cartridge format; XEGS `_cart_init` writes `$D500` to select bank 0 before `main()` runs.
-- **GEOS-CBM hello** — uses GEOS kernel jump-table entries (`__GraphicsString`, `__PutString`, `__UseSystemFont`, `__MainLoop`) as `extern fn` declarations resolved by `geos.ld`; passes arguments via zero-page registers `__r0` (`$0002`) and `__r11` (`$0018`). Output is a `.cvt` VLIR-formatted GEOS application file, verified by `03 00 FF` + `llvm-mos VLIR` magic at offset `$00`.
-- **OSI Challenger 1P hello** — uses `printf` via the platform's hosted libc (linked from `mos-platform/common/c/`); outputs a raw `TRIM(ram)` binary with load address `$0200`, no file header. Detected by `bininfo` from the filename prefix.
-- **CP/M-65 hello** — uses `cpm_printstring` via the CP/M-65 BDOS call wrapper; the ELF is post-processed by `elftocpm65` to produce a 4-byte-header relocatable `.com` file (ZP size, memory pages, pblock address, `0x4C` BDOS stub).
-- **sim-hello** — uses translated `sim-io.h` (typed MMIO struct) via `b.addTranslateC`; benchmarks fib(10), fib(20), and sieve of Eratosthenes for primes < 128.
-- **MEGA65 hello** — uses a comptime `screenCodes()` function to convert an ASCII string to PETSCII screen codes at compile time (uppercase A–Z → codes 1–26; digits/punctuation $20–$3F unchanged); writes to 80-column screen RAM at `$0800`; sets the border colour to green (colour 5) via the VIC-IV `bordercol` register at `$D020`.
-- **MEGA65 viciv** — VIC-IV colour test; sets screen colour to bubblegum (`$1E`) via `$D021` and cycles border colour through all 256 values in a tight loop. Requires GUI display (xemu or real hardware) to observe the colour effect — headless `-dumpscreen` captures only character codes, not VIC-IV colour registers.
 
 ## References
 
