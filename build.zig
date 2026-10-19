@@ -1,5 +1,6 @@
 // Copyright (c) 2024 Matheus C. França
 // SPDX-License-Identifier: Apache-2.0
+
 const std = @import("std");
 const sdk_mod = @import("sdk/build.zig");
 
@@ -27,7 +28,7 @@ pub fn build(b: *std.Build) void {
         sdk_step.dependOn(&b.addInstallArtifact(lib, .{ .dest_dir = .{ .override = .{ .custom = "mos-platform/c64/lib" } } }).step);
     }
 
-    // C64 hardware definitions (c64-zig).
+    // C64 hardware definitions
     const c64_mod = b.dependency("c64_zig", .{}).module("c64");
 
     const mos_panic_mod = b.createModule(.{
@@ -52,7 +53,7 @@ pub fn build(b: *std.Build) void {
     });
     linkC64(b, exe, sdk_dep, sdk_src, sdk_libs);
 
-    const install = b.addInstallArtifact(exe, .{ .dest_sub_path = "main.prg" });
+    const install = b.addInstallArtifact(exe, .{ .dest_sub_path = b.fmt("{s}.prg", .{exe.name}) });
     b.getInstallStep().dependOn(&install.step);
 }
 
