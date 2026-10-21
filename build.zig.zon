@@ -7,8 +7,8 @@
             .hash = "N-V-__8AAKSeLAA0M14Y-qtR7Srg-0spUC9lk4H3234zgjc1",
         },
         .c64_zig = .{
-            .url = "git+https://github.com/SimoneFelici/c64-zig.git?ref=main#6d9b48ef8fe04bf331d5b1a9fc67b2df889127c7",
-            .hash = "c64_zig-0.0.0-IHLMKdcVAADk0dja5LLlV5pskMmVEzL9GYf5vtcsiU4M",
+            .url = "git+https://github.com/SimoneFelici/c64-zig#1bdd3908ca89523f013093f1971406d381812745",
+            .hash = "c64_zig-0.1.0-IHLMKe3bAAD5JNt4E2UWm4IptgOcYrKKAH3HOzDz0vJ1",
         },
     },
     .minimum_zig_version = "0.17.0",
